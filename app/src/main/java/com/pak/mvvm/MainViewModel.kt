@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pak.mvvm.models.PhoneContact
 import com.pak.mvvm.respository.ContactRepositoryImpl
+import com.pak.mvvm.utils.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,7 +19,7 @@ class MainViewModel(private val repositoryImpl: ContactRepositoryImpl) : ViewMod
         }
     }
 
-    val contacts : LiveData<PhoneContact>
+    val contacts : LiveData<Response<PhoneContact>>
     get() = repositoryImpl.contacts
 
     val msgText = MutableLiveData("Hello Shakeel")

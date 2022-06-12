@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ContactModule {
 
     @Provides
-    fun provideContactRepository( apiService: ApiService) : ContactRepository {
+    fun provideContactRepository(apiService: ApiService) : ContactRepository {
         return ContactRepositoryImpl(apiService)
     }
 

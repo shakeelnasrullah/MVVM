@@ -14,6 +14,7 @@ import com.pak.mvvm.respository.ContactRepository
 import com.pak.mvvm.respository.ContactRepositoryImpl
 import com.pak.mvvm.utils.LoggerService
 import com.pak.mvvm.utils.MainViewModelFactory
+import com.pak.mvvm.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -45,9 +46,21 @@ class MainActivity : AppCompatActivity() {
         //val contactRepository = ContactRepositoryImpl(phoneContactAPI)
         mainViewModel = ViewModelProvider(this, MainViewModelFactory(contactRepository)).get(MainViewModel::class.java)
         mainViewModel.contacts.observe(this, Observer {
-            it.forEach { item ->
-                loggerService.log("Name :: " , item.name)
+            when(it){
+                is Response.Loading -> {
+                    // Show Loading progress
+                }
+                is Response.Success -> {
+                    it.data?.let {
+                       it.forEach { item ->
+                            loggerService.log("Name :: " , item.name)
+                        }
+                    }
+
+                }
+                is Response.Failure -> {}
             }
+
 
         })
         binding.mainViewModel = mainViewModel

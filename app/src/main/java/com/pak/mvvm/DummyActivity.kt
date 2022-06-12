@@ -41,7 +41,7 @@ class DummyActivity : AppCompatActivity() {
             binding.secondTextTv.text = it
         }*/
         mainViewModel.contacts.observe(this, Observer {
-            it.forEach { item ->
+            it.data?.forEach { item ->
                 Log.d("Name :: ", item.name)
             }
 
